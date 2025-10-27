@@ -1,69 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Click and Drag</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    html {
-      box-sizing: border-box;
-      background: url('https://source.unsplash.com/NFs6dRTBgaM/2000x2000') fixed;
-      background-size: cover;
-    }
-
-    *, *:before, *:after {
-      box-sizing: inherit;
-    }
-
-    body {
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: sans-serif;
-      margin: 0;
-    }
-
-    .items {
-      height: 600px;
-      width: 1000px;
-      border: 2px solid white;
-      background: rgba(255,255,255,0.1);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .item {
-      width: 100px;
-      height: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      font-weight: bold;
-      color: white;
-      position: absolute;
-      cursor: grab;
-      user-select: none;
-    }
-
-    .item:active {
-      cursor: grabbing;
-    }
-
-    .item:nth-child(9n+1) { background: dodgerblue;}
-    .item:nth-child(9n+2) { background: goldenrod;}
-    .item:nth-child(9n+3) { background: paleturquoise;}
-    .item:nth-child(9n+4) { background: gold;}
-    .item:nth-child(9n+5) { background: cadetblue;}
-    .item:nth-child(9n+6) { background: tomato;}
-    .item:nth-child(9n+7) { background: lightcoral;}
-    .item:nth-child(9n+8) { background: darkslateblue;}
-    .item:nth-child(9n+9) { background: rebeccapurple;}
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="items" id="container">
+  <div class="items">
     <div class="item">01</div>
     <div class="item">02</div>
     <div class="item">03</div>
@@ -75,51 +18,8 @@
     <div class="item">09</div>
   </div>
 
-<script>
-const container = document.getElementById("container");
-const items = document.querySelectorAll(".item");
-
-let selected = null;
-let offsetX = 0, offsetY = 0;
-
-items.forEach((item, i) => {
-  // Place cubes in a grid initially
-  item.style.left = (i % 5) * 120 + "px";
-  item.style.top = Math.floor(i / 5) * 120 + "px";
-
-  item.addEventListener("mousedown", (e) => {
-    selected = item;
-    const rect = item.getBoundingClientRect();
-    offsetX = e.clientX - rect.left;
-    offsetY = e.clientY - rect.top;
-    item.style.zIndex = 1000; // bring to front
-  });
-});
-
-document.addEventListener("mousemove", (e) => {
-  if (!selected) return;
-
-  const containerRect = container.getBoundingClientRect();
-  const itemRect = selected.getBoundingClientRect();
-
-  let newLeft = e.clientX - containerRect.left - offsetX;
-  let newTop = e.clientY - containerRect.top - offsetY;
-
-  // boundary check
-  newLeft = Math.max(0, Math.min(newLeft, containerRect.width - itemRect.width));
-  newTop = Math.max(0, Math.min(newTop, containerRect.height - itemRect.height));
-
-  selected.style.left = newLeft + "px";
-  selected.style.top = newTop + "px";
-});
-
-document.addEventListener("mouseup", () => {
-  if (selected) {
-    selected.style.zIndex = 1;
-    selected = null;
-  }
-});
-</script>
+  <script src="script.js"></script>
 </body>
 </html>
+
 

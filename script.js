@@ -1,4 +1,3 @@
-// Your code here.
 const slider = document.querySelector('.items');
 let isDown = false;
 let startX;
@@ -22,9 +21,10 @@ slider.addEventListener('mouseup', () => {
 });
 
 slider.addEventListener('mousemove', (e) => {
-  if (!isDown) return; // stop if not clicked
+  if (!isDown) return;
   e.preventDefault();
   const x = e.pageX - slider.offsetLeft;
-  const walk = (x - startX) * 2; // *2 for faster scroll
+  const walk = (x - startX) * 2; // drag speed
   slider.scrollLeft = scrollLeft - walk;
 });
+
